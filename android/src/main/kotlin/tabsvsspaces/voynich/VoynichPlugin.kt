@@ -7,8 +7,10 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 import io.flutter.plugin.common.PluginRegistry.Registrar
+import tabsvsspaces.voynich.encryption.CryptConstants
 import tabsvsspaces.voynich.encryption.CryptSymmetric
 import java.io.File
+import javax.crypto.spec.SecretKeySpec
 
 /** VoynichPlugin */
 public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
@@ -51,14 +53,25 @@ public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
         when (call.method) {
             "encrypt" -> {
                 val path = call.argument<String>("path")
+                val cryptKeyHex = call.argument<String>("cryptKeyHex")
+                val outputFilePath = call.argument<String>("outputFilePath")
                 val file = File(path)
-                //crypt.encrypt(file)
+                val outputFile = File(outputFilePath)
 
-                result.success("Android ${android.os.Build.VERSION.RELEASE}")
+                crypt.encrypt(file, SecretKeySpec(cryptKeyHex?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), outputFile)
+
+                result.success(outputFile.absolutePath)
             }
             "decrypt" -> {
                 val path = call.argument<String>("path")
-                result.success("Android ${android.os.Build.VERSION.RELEASE}")
+                val cryptKeyHex = call.argument<String>("cryptKeyHex")
+                val outputFilePath = call.argument<String>("outputFilePath")
+                val file = File(path)
+                val outputFile = File(outputFilePath)
+
+                crypt.decrypt(file, SecretKeySpec(cryptKeyHex?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), outputFile)
+
+                result.success(outputFile.absolutePath)
             }
             else -> {
                 result.notImplemented()
