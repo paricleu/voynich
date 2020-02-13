@@ -1,5 +1,6 @@
 package tabsvsspaces.voynich
 
+import android.util.Log
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -50,11 +51,12 @@ public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        Log.d("Voynich", "onMethodCall")
         when (call.method) {
             "encrypt" -> {
                 val path = call.argument<String>("path")
                 val cryptKeyHex = call.argument<String>("cryptKeyHex")
-                val outputFilePath = call.argument<String>("outputFilePath")
+                val outputFilePath = call.argument<String>("outputPath")
                 val file = File(path)
                 val outputFile = File(outputFilePath)
 
@@ -65,7 +67,7 @@ public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
             "decrypt" -> {
                 val path = call.argument<String>("path")
                 val cryptKeyHex = call.argument<String>("cryptKeyHex")
-                val outputFilePath = call.argument<String>("outputFilePath")
+                val outputFilePath = call.argument<String>("outputPath")
                 val file = File(path)
                 val outputFile = File(outputFilePath)
 
