@@ -1,5 +1,6 @@
 package tabsvsspaces.voynich
 
+import android.util.Log
 import androidx.annotation.NonNull
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
@@ -50,6 +51,7 @@ public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
     }
 
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
+        Log.d("Voynich", "onMethodCall")
         when (call.method) {
             "encrypt" -> {
                 val path = call.argument<String>("path")
