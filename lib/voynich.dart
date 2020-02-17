@@ -30,7 +30,7 @@ class Voynich {
       'decryptSymmetric',
       <String, dynamic>{
         'inputPath': input.path,
-        'cryptKeyHex': password,
+        'password': password,
         'outputPath': output.path
       },
     );
