@@ -53,27 +53,27 @@ public class VoynichPlugin : FlutterPlugin, MethodCallHandler {
     override fun onMethodCall(@NonNull call: MethodCall, @NonNull result: Result) {
         Log.d("Voynich", "onMethodCall")
         when (call.method) {
-            "encrypt" -> {
-                val path = call.argument<String>("path")
-                val cryptKeyHex = call.argument<String>("cryptKeyHex")
-                val outputFilePath = call.argument<String>("outputPath")
-                val file = File(path)
-                val outputFile = File(outputFilePath)
+            "encryptSymmetric" -> {
+                val inputPath = call.argument<String>("inputPath")
+                val password = call.argument<String>("password")
+                val outputPath = call.argument<String>("outputPath")
+                val input = File(inputPath)
+                val output = File(outputPath)
 
-                crypt.encrypt(file, SecretKeySpec(cryptKeyHex?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), outputFile)
+                crypt.encrypt(input, SecretKeySpec(password?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), output)
 
-                result.success(outputFile.absolutePath)
+                result.success(null)
             }
-            "decrypt" -> {
-                val path = call.argument<String>("path")
-                val cryptKeyHex = call.argument<String>("cryptKeyHex")
-                val outputFilePath = call.argument<String>("outputPath")
-                val file = File(path)
-                val outputFile = File(outputFilePath)
+            "decryptSymmetric" -> {
+                val inputPath = call.argument<String>("inputPath")
+                val password = call.argument<String>("password")
+                val outputPath = call.argument<String>("outputPath")
+                val input = File(inputPath)
+                val output = File(outputPath)
 
-                crypt.decrypt(file, SecretKeySpec(cryptKeyHex?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), outputFile)
+                crypt.decrypt(input, SecretKeySpec(password?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), output)
 
-                result.success(outputFile.absolutePath)
+                result.success(null)
             }
             else -> {
                 result.notImplemented()

@@ -6,33 +6,33 @@ import 'package:flutter/services.dart';
 class Voynich {
   static const MethodChannel _channel = const MethodChannel('voynich');
 
-  static Future<File> encrypt(
-      File file, String cryptKeyHex, File output) async {
-    assert(file != null);
-    final String path = await _channel.invokeMethod<String>(
-      'encrypt',
+  static Future<void> encryptSymmetric(
+      File input, String password, File output) async {
+    assert(input != null);
+    assert(output != null);
+
+    return await _channel.invokeMethod<void>(
+      'encryptSymmetric',
       <String, dynamic>{
-        'path': file.path,
-        'cryptKeyHex': cryptKeyHex,
+        'inputPath': input.path,
+        'password': password,
         'outputPath': output.path
       },
     );
-
-    return path == null ? null : File(path);
   }
 
-  static Future<File> decrypt(
-      File file, String cryptKeyHex, File output) async {
-    assert(file != null);
-    final String path = await _channel.invokeMethod<String>(
-      'decrypt',
+  static Future<void> decryptSymmetric(
+      File input, String password, File output) async {
+    assert(input != null);
+    assert(output != null);
+
+    return await _channel.invokeMethod<void>(
+      'decryptSymmetric',
       <String, dynamic>{
-        'path': file.path,
-        'cryptKeyHex': cryptKeyHex,
+        'inputPath': input.path,
+        'cryptKeyHex': password,
         'outputPath': output.path
       },
     );
-
-    return path == null ? null : File(path);
   }
 }
