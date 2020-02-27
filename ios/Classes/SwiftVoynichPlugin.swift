@@ -13,12 +13,15 @@ public class SwiftVoynichPlugin: NSObject, FlutterPlugin {
         switch call.method {
         case "encryptSymmetric":
             guard let args = call.arguments as? Dictionary<String, Any> else {
-                return result("iOS could not recognize flutter arguments in method: (sendParams)")
+                result("iOS could not recognize flutter arguments in method: (sendParams)")
+                return
             }
             let inputPath = args["inputPath"] as! String
             let password  = args["password"]as! String
             let outputPath  = args["outputPath"]as! String
-            
+            print(inputPath)
+            print(password)
+            print(outputPath)
             do {
                 let plainData = try Data(contentsOf: URL(string: inputPath)!)
                 
@@ -45,12 +48,15 @@ public class SwiftVoynichPlugin: NSObject, FlutterPlugin {
             result(nil)
         case "decryptSymmetric":
             guard let args = call.arguments as? Dictionary<String, Any> else {
-                return                result("iOS could not recognize flutter arguments in method: (sendParams)")
+                result("iOS could not recognize flutter arguments in method: (sendParams)")
+                return
             }
             let inputPath = args["inputPath"] as! String
             let password  = args["password"]as! String
             let outputPath  = args["outputPath"]as! String
-            
+            print(inputPath)
+            print(password)
+            print(outputPath)
             do {
                 let encryptedData = try Data(contentsOf: URL(string: inputPath)!)
                 
