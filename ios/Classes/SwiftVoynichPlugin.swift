@@ -23,7 +23,7 @@ public class SwiftVoynichPlugin: NSObject, FlutterPlugin {
             print(password)
             print(outputPath)
             do {
-                let plainData = try Data(contentsOf: URL(string: inputPath)!)
+                let plainData = try Data(contentsOf: URL(fileURLWithPath: inputPath))
                 
                 let keyUInt8Array: [UInt8] = stringToBytes(password)!
                 let iv16BytesArray = stringToBytes(generateRandomIV()!)!
@@ -58,7 +58,7 @@ public class SwiftVoynichPlugin: NSObject, FlutterPlugin {
             print(password)
             print(outputPath)
             do {
-                let encryptedData = try Data(contentsOf: URL(string: inputPath)!)
+                let encryptedData = try Data(contentsOf: URL(fileURLWithPath: inputPath))
                 
                 let keyUInt8Array: [UInt8] = self.stringToBytes(password)!
                 let iv16BytesArray = Array(encryptedData[0..<16])
