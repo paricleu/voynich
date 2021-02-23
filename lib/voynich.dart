@@ -8,9 +8,6 @@ class Voynich {
 
   static Future<void> encryptSymmetric(
       File input, String password, File output) async {
-    assert(input != null);
-    assert(output != null);
-
     return await _channel.invokeMethod<void>(
       'encryptSymmetric',
       <String, dynamic>{
@@ -23,9 +20,6 @@ class Voynich {
 
   static Future<void> decryptSymmetric(
       File input, String password, File output) async {
-    assert(input != null);
-    assert(output != null);
-
     return await _channel.invokeMethod<void>(
       'decryptSymmetric',
       <String, dynamic>{
