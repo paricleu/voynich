@@ -1,7 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:voynich/voynich_method_channel.dart';
 
 void main() {
+  MethodChannelVoynich platform = MethodChannelVoynich();
   const MethodChannel channel = MethodChannel('voynich');
 
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -17,6 +19,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    //expect(await Voynich.#, '42');
+    expect(await platform.getPlatformVersion(), '42');
   });
 }

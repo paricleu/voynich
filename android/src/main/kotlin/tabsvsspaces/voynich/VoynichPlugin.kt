@@ -13,10 +13,6 @@ import javax.crypto.spec.SecretKeySpec
 
 /** VoynichPlugin */
 class VoynichPlugin : FlutterPlugin, MethodCallHandler {
-    /// The MethodChannel that will the communication between Flutter and native Android
-    ///
-    /// This local reference serves to register the plugin with the Flutter Engine and unregister it
-    /// when the Flutter Engine is detached from the Activity
     private lateinit var channel: MethodChannel
 
     private val crypt = CryptSymmetric()
@@ -35,7 +31,14 @@ class VoynichPlugin : FlutterPlugin, MethodCallHandler {
                 val input = File(inputPath)
                 val output = File(outputPath)
 
-                crypt.encrypt(input, SecretKeySpec(password?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), output)
+                crypt.encrypt(
+                    input,
+                    SecretKeySpec(
+                        password?.hexToByteArray(),
+                        CryptConstants.SECRET_KEY_SPEC_ALGORITHM
+                    ),
+                    output
+                )
 
                 result.success(null)
             }
@@ -46,7 +49,14 @@ class VoynichPlugin : FlutterPlugin, MethodCallHandler {
                 val input = File(inputPath)
                 val output = File(outputPath)
 
-                crypt.decrypt(input, SecretKeySpec(password?.hexToByteArray(), CryptConstants.SECRET_KEY_SPEC_ALGORITHM), output)
+                crypt.decrypt(
+                    input,
+                    SecretKeySpec(
+                        password?.hexToByteArray(),
+                        CryptConstants.SECRET_KEY_SPEC_ALGORITHM
+                    ),
+                    output
+                )
 
                 result.success(null)
             }

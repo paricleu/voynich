@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  //String _platformVersion = 'Unknown';
 
   @override
   void initState() {
@@ -21,9 +21,8 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    File outputFile;
     // Platform messages may fail, so we use a try/catch PlatformException.
-    await Voynich.encryptSymmetric(File(""), "key", File(""));
+    await Voynich().encryptSymmetric(File(""), "key", File(""));
 
     // If the widget was removed from the tree while the asynchronous platform
     // message was in flight, we want to discard the reply rather than calling
@@ -40,7 +39,7 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Voynich example app'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('Voynich example app'),
         ),
       ),
