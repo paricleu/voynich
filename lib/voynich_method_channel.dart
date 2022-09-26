@@ -7,7 +7,7 @@ import 'voynich_platform_interface.dart';
 class MethodChannelVoynich extends VoynichPlatform {
   /// The method channel used to interact with the native platform.
   @visibleForTesting
-  final methodChannel = const MethodChannel('untitled');
+  final methodChannel = const MethodChannel('voynich');
 
   @override
   Future<void> encryptSymmetric({
